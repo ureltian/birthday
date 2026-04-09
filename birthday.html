@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Barbie Dream Birthday</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600&family=Playfair+Display:ital,wght@0,700;1,400&family=Pacifico&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+    <style>
+        :root {
+            --barbie-pink: #ff69b4;
+            --soft-pink: #fce4ec;
+            --accent-pink: #e91e63;
+        }
+
+        body {
+            /* Background bertema Barbie Dreamhouse */
+            background: linear-gradient(rgba(255, 192, 203, 0.4), rgba(255, 192, 203, 0.4)), 
+                        url('https://images.unsplash.com/photo-1629196911514-cfd8d628ba26?q=80&w=2000&auto=format&fit=crop');
+            background-size: cover;
+            background-attachment: fixed;
+            background-position: center;
+            font-family: 'Montserrat', sans-serif;
+            min-height: 100-screen;
+        }
+
+        .barbie-title {
+            font-family: 'Pacifico', cursive;
+            color: white;
+            text-shadow: 4px 4px 0px var(--barbie-pink);
+        }
+
+        .glass-container {
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(12px);
+            border-radius: 30px;
+            border: 2px solid rgba(255, 255, 255, 0.5);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+        }
+
+        .photo-card {
+            background: white;
+            padding: 12px;
+            border-radius: 4px;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.15);
+            transform: rotate(-3deg);
+            transition: 0.4s ease;
+        }
+
+        .photo-card:hover {
+            transform: rotate(0deg) scale(1.05);
+        }
+
+        /* Emoji Button Styles */
+        .emoji-btn {
+            font-size: 2rem;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            display: inline-block;
+            filter: drop-shadow(0 4px 4px rgba(0,0,0,0.1));
+        }
+
+        .emoji-btn:active {
+            transform: scale(0.8);
+        }
+
+        .emoji-btn:hover {
+            transform: scale(1.2);
+        }
+
+        /* Hidden Letter Animation */
+        #special-letter {
+            display: none;
+            animation: slideUp 0.8s ease-out;
+        }
+
+        @keyframes slideUp {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .custom-btn {
+            background: var(--barbie-pink);
+            color: white;
+            padding: 15px 35px;
+            border-radius: 50px;
+            font-weight: 600;
+            letter-spacing: 1px;
+            transition: all 0.3s;
+            box-shadow: 0 6px 20px rgba(255, 105, 180, 0.4);
+        }
+
+        .custom-btn:hover {
+            background: var(--accent-pink);
+            transform: translateY(-2px);
+        }
+    </style>
+</head>
+<body class="py-12 px-4 flex flex-col items-center">
+
+    <!-- Audio Element -->
+    <audio id="birthdaySong" loop>
+        <source src="birthday.mp4" type="audio/mpeg">
+        <!-- Anda bisa mengganti URL di atas dengan link lagu pilihan Anda (format .mp3) -->
+    </audio>
+
+    <!-- Header Section -->
+    <header class="text-center mb-12">
+        <h1 class="barbie-title text-6xl md:text-8xl mb-4">A Special Day For</h1>
+        <p class="text-pink-600 font-bold tracking-[0.2em] uppercase text-sm">PRINCESS</p>
+    </header>
+
+    <!-- Main Content -->
+    <div class="max-w-4xl w-full">
+        <div class="glass-container p-8 md:p-16 text-center">
+            
+            <!-- Photo Frame -->
+            <div class="flex justify-center mb-10">
+                <div class="photo-card w-64 md:w-80">
+                    <!-- GANTI FOTO DI SINI -->
+                    <img src="kky.jpg" 
+                         alt="The Birthday Girl" 
+                         class="w-full h-auto aspect-[3/4] object-cover mb-4">
+                    <p class="font-serif italic text-gray-400 text-sm text-right">09 / 04 / 2026</p>
+                </div>
+            </div>
+
+            <!-- Emoji Interaction Row -->
+            <div class="flex justify-center gap-8 mb-10">
+                <span class="emoji-btn" onclick="spawnEmoji('💖')">💖</span>
+                <span class="emoji-btn" onclick="spawnEmoji('🌸')">🌸</span>
+                <span class="emoji-btn" onclick="spawnEmoji('🎀')">🎀</span>
+                <span class="emoji-btn" onclick="spawnEmoji('✨')">✨</span>
+            </div>
+
+            <!-- Intro Message -->
+            <div id="intro-box">
+                <h2 class="text-3xl font-serif text-gray-800 mb-6">Ayo klik Emoji Dan Jangan Lupa Baca Suratnya</h2>
+                <button onclick="revealLetter()" class="custom-btn">
+                    Buka Surat 💌
+                </button>
+            </div>
+
+            <!-- The Long Heartfelt Letter -->
+            <div id="special-letter" class="text-left space-y-6">
+                <div class="h-[2px] w-20 bg-pink-300 mb-8 mx-auto"></div>
+                
+                <h3 class="font-serif text-2xl text-pink-500 text-center italic mb-8">"Grow Even Better, Darling"</h3>
+                
+                <div class="text-gray-700 leading-relaxed text-lg space-y-4">
+                    <p>
+                        Hari ini bukan sekadar tentang bertambahnya angka, tapi tentang merayakan betapa indahnya perjalanan yang telah kamu lalui. Di dunia yang terkadang terasa bising, kehadiranmu selalu punya cara untuk membawa ketenangan dan keceriaan bagi orang-orang di sekitarmu.
+                    </p>
+                    <p>
+                        Aku berharap kamu selalu punya alasan untuk tersenyum setiap harinya. Jangan pernah membiarkan dunia memadamkan binar di matamu. Teruslah menjadi versi terbaik dari dirimu sendiri—yang berani bermimpi besar, yang lembut hatinya, namun tangguh dalam menghadapi setiap tantangan.
+                    </p>
+                    <p>
+                        Ingatlah bahwa kamu berharga, bukan karena apa yang kamu miliki atau apa yang kamu capai, tapi karena siapa dirimu sebenarnya. Semoga tahun ini membawa banyak petualangan baru yang menyenangkan, tawa yang tulus, dan kedamaian yang mendalam.
+                    </p>
+                    <p class="font-semibold text-pink-600 pt-4">
+                        Pesan dari aku tolong untuk tahun ini tumbuh lebih baik lagi, jangan sungkan buat berubah, cukup tahun kemaren yang terakhir, aku tau bilang kek gini tu ga bikin kamu langsung berubah tapi aku bisanya cuma nyadarin kamu doang, 
+                        Sekali lagi HAPPY BIRTHDAY GORGEOUS.
+                    </p>
+                </div>
+
+                <div class="pt-10 flex justify-center">
+                    <button onclick="window.location.reload()" class="text-gray-400 text-sm hover:text-pink-500 transition underline underline-offset-4">Tutup Surat</button>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="mt-16 text-white/80 text-center space-y-2">
+        <p class="text-xs tracking-widest">UNTUK KEISHA YANG PECINTA PINKBARBIE</p>
+        <p class="font-serif italic">Dari Urell</p>
+    </footer>
+
+    <script>
+        function revealLetter() {
+            document.getElementById('intro-box').style.display = 'none';
+            document.getElementById('special-letter').style.display = 'block';
+            
+            // Play Music
+            const music = document.getElementById('birthdaySong');
+            music.play().catch(error => console.log("Autoplay blocked by browser:", error));
+            
+            // Trigger Confetti
+            confetti({
+                particleCount: 150,
+                spread: 70,
+                origin: { y: 0.6 },
+                colors: ['#ff69b4', '#ffffff', '#fce4ec']
+            });
+        }
+
+        function spawnEmoji(emoji) {
+            const container = document.body;
+            const element = document.createElement('div');
+            element.innerHTML = emoji;
+            element.style.position = 'fixed';
+            element.style.left = Math.random() * 90 + 'vw';
+            element.style.top = '100vh';
+            element.style.fontSize = Math.random() * 20 + 20 + 'px';
+            element.style.zIndex = '100';
+            element.style.pointerEvents = 'none';
+            container.appendChild(element);
+
+            const animation = element.animate([
+                { transform: 'translateY(0) rotate(0deg)', opacity: 1 },
+                { transform: `translateY(-110vh) rotate(${Math.random() * 360}deg)`, opacity: 0 }
+            ], {
+                duration: 3000,
+                easing: 'ease-out'
+            });
+
+            animation.onfinish = () => element.remove();
+            
+            // Small subtle vibration on click
+            if (window.navigator.vibrate) window.navigator.vibrate(20);
+        }
+
+        // Auto Confetti on load
+        window.onload = () => {
+            console.log("Welcome to Barbie Dream Celebration");
+        };
+    </script>
+</body>
+</html>
